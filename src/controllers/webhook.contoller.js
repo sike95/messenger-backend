@@ -25,7 +25,8 @@ exports.createWebHook = (req, res, next) => {
 
       if (webhook_event.message) {
         _userHandler.handelUserInfo(sender_psid);
-        _messageHandler.handleMessage(sender_psid, webhook_event.message);        
+        _messageHandler.handleMessage(sender_psid, webhook_event.message);
+        req.app.io.emit('message', {userId: sender_psid, message: webhook_event.message});    
       }
       
     });

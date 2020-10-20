@@ -7,7 +7,6 @@ class MessengeHandler {
   constructor() { }
   handleMessage(sender_psid, received_message) {
     let response;
-    let messengerService = new MessengerService();
     let customerService = new CustomerService();
     let messageService = new MessageService();
 
@@ -64,13 +63,14 @@ class MessengeHandler {
   }
 
   handlePostback(sender_psid, received_postback) {
-
+    let messengerService = new MessengerService();
     let customerService = new CustomerService();
     let messageService = new MessageService();
+    let response = {};
 
     if (received_postback) {
       response = {
-        "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
+        "text": received_postback
       }
       const messageBody = {
         agent: true,
@@ -84,11 +84,12 @@ class MessengeHandler {
         .then((messageId) => {
           customerService
             .updateCustomerConversation(sender_psid, messageId);
+            messengerService.callSendAPI(sender_psid, response);
         })
         .catch((err) => {
           console.log(err);
         });
-      messengerService.callSendAPI(sender_psid, response);
+     
     }
   }
 }
