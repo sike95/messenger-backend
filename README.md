@@ -1,6 +1,8 @@
 # Getting started
 ## To get the Node server running locally:
 
+# !! NB ADD ENV FILE TO SOLUTION SAMPLE ENV IS AVAILAB;E
+
 ### Clone this repo
 `npm install` to install all required dependencies
 
